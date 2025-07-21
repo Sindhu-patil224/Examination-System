@@ -1,0 +1,68 @@
+import java.util.Scanner;
+
+public class ExaminationSystem {
+
+    // Hardcoded credentials for login
+    static final String USERNAME = "user";
+    static final String PASSWORD = "pass";
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Login Section
+        System.out.println("Welcome to the Examination System");
+        System.out.print("Enter username: ");
+        String inputUser = sc.nextLine();
+
+        System.out.print("Enter password: ");
+        String inputPass = sc.nextLine();
+
+        if (inputUser.equals(USERNAME) && inputPass.equals(PASSWORD)) {
+            System.out.println("Login successful!\n");
+            takeExam(sc);
+        } else {
+            System.out.println("Invalid credentials. Exiting.");
+        }
+
+        sc.close();
+    }
+
+    public static void takeExam(Scanner sc) {
+        String[] questions = {
+            "What is the capital of France?\n(a) Berlin\n(b) London\n(c) Paris\n(d) Madrid",
+            "Which language is used for Android development?\n(a) Python\n(b) Java\n(c) C++\n(d) Ruby",
+            "What does JVM stand for?\n(a) Java Virtual Machine\n(b) Java Variable Method\n(c) Java Verified Module\n(d) None"
+        };
+
+        char[] answers = {'c', 'b', 'a'};  // correct answers
+
+        int score = 0;
+
+        for (int i = 0; i < questions.length; i++) {
+            System.out.println("Q" + (i + 1) + ": " + questions[i]);
+            System.out.print("Your answer: ");
+            String userAnswer = sc.nextLine();
+
+            // Check answer ignoring case and trimming whitespace
+            if (userAnswer.trim().equalsIgnoreCase(String.valueOf(answers[i]))) {
+                System.out.println("Correct!\n");
+                score++;
+            } else {
+                System.out.println("Wrong! Correct answer is: " + answers[i] + "\n");
+            }
+        }
+
+        // Display results
+        System.out.println("Exam completed.");
+        System.out.println("Your score: " + score + " out of " + questions.length);
+
+        // Simple feedback
+        if (score == questions.length) {
+            System.out.println("Excellent! You passed with flying colors.");
+        } else if (score >= questions.length / 2) {
+            System.out.println("Good job! You passed.");
+        } else {
+            System.out.println("You failed. Better luck next time.");
+        }
+    }
+}
